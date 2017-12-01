@@ -1,0 +1,12 @@
+name: SashaAuth
+author: Sasha
+description: Authentication for offline servers
+main: com.sasha.Main
+version: 1.0
+commands:
+    register:
+        description: Register an account
+        usage: /register password
+    login:
+        description: Login into a account
+        usage: /login password
