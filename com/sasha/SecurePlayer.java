@@ -10,6 +10,7 @@ public class SecurePlayer {
     private boolean isAuthed;
     private Player player;
     private String password;
+    private String ip;
     private boolean needsToRegister;
 
     public SecurePlayer(Player player) {
@@ -29,6 +30,7 @@ public class SecurePlayer {
             needsToRegister = true;
             return;
         }
+        this.ip = player.getAddress().getHostString();
         needsToRegister = false;
     }
 
@@ -46,6 +48,10 @@ public class SecurePlayer {
 
     public void setNeedsToRegister(boolean needsToRegister) {
         this.needsToRegister = needsToRegister;
+    }
+    
+    public String getIP() {
+    	return ip;
     }
 
     public void setAuthed(boolean authed) {
