@@ -70,7 +70,7 @@ public class Main extends JavaPlugin implements Listener {
     public static boolean isAbusing(String IP, int threshold){
         for (HashMap.Entry<String, Integer> entry : ipAbuseMap.entrySet()){
             if (entry.getKey().equals(IP)){
-		if (entry.getValue() <= threshold){
+		if (entry.getValue() >= threshold){
 		return true;
 		}
             }	
