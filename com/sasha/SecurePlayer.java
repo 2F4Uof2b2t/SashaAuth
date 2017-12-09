@@ -11,8 +11,10 @@ public class SecurePlayer {
     private Player player;
     private String password;
     private boolean needsToRegister;
+	private String IP;
 
     public SecurePlayer(Player player) {
+		this.IP = player.getAddress().getHostString();
         File file = new File("Credentials.txt");
         if (!file.exists()) {
             try {
@@ -60,4 +62,7 @@ public class SecurePlayer {
         }
         return null;
     }
+	public String getIP(){
+		return this.IP;
+	}
 }
