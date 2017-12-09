@@ -8,10 +8,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
+import java.util.*;
 
 public class Main extends JavaPlugin implements Listener {
 
     public static JavaPlugin lol;
+	
+	public static HashMap<String, Integer> ipAbuseMap = new HashMap<>();
 
     @Override
     public void onDisable() {
@@ -63,6 +66,17 @@ public class Main extends JavaPlugin implements Listener {
         sp.getPlayer().setHealth(20);
         sp.getPlayer().setFallDistance(0f);
     }
+	
+	public static boolean isAbusing(String IP, int threshold){
+		for (HashMap.Entry<String, Integer> entry : ipAbuseMap.entrySet()){
+			if (entry.getKey().equals(IP)){
+				if (entry.getValue() <= threshold){
+					return true;
+				}
+			}	
+		}
+		return false;
+	}
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
@@ -84,6 +98,10 @@ public class Main extends JavaPlugin implements Listener {
                 p.getPlayer().sendMessage("\247cIncorrect usage. Use /register <password>");
                 return true;
             }
+			if(isAbusing(p.getIP(), 5)){
+				p.getPlayer().kickPlayer("Possible account abuse detected.");
+				return true;
+			}
             String psswd = args[0];
             try {
                 registerUser(p, psswd);
